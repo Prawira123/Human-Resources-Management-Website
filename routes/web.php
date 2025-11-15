@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DepartmentController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -11,7 +12,11 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::resource('tasks', TaskController::class);
+Route::resource('tasks', controller: TaskController::class);
+Route::put('/tasks/taskStatus/{id}', [TaskController::class, 'taskStatus'])->name('tasks.taskStatus');
+
+Route::resource('departments', controller: DepartmentController::class);
+Route::put('/departments/departmentStatus/{id}', [DepartmentController::class, 'departmentStatus'])->name('departments.departmentStatus');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

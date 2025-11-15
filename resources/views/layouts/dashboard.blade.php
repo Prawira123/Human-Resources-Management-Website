@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="{{ asset('dist/assets/compiled/css/iconly.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/assets/extensions/simple-datatables/style.css')}}">
   <link rel="stylesheet" href="{{ asset('dist/assets/compiled/css/table-datatable.css') }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
 </head>
 
@@ -68,13 +69,13 @@
     <ul class="menu">
         <li class="sidebar-title">Menu</li>
             <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{ route('dashboard') }}" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{ route('tasks.index') }}" class='sidebar-link'>
                     <i class="bi bi-check-circle-fill"></i>
                     <span>Tasks</span>
                 </a>
@@ -86,7 +87,7 @@
                 </a>
             </li>
             <li class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{ route('departments.index') }}" class='sidebar-link'>
                     <i class="bi bi-briefcase"></i>
                     <span>Departments</span>
                 </a>
@@ -150,5 +151,14 @@
 <script src="{{  asset('dist/assets/static/js/pages/dashboard.js')}}"></script>
 <script src="{{ asset('dist/assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
 <script src="{{  asset('dist/assets/static/js/pages/simple-datatables.js')}}"></script>
+
+<!-- untuk date -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    let date = flatpickr('.datetime', {
+        enableTime: true,
+        format: "Y-m-d"
+    })
+</script>
 </body>
 </html>

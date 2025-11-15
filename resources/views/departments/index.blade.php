@@ -8,7 +8,7 @@
 </header>
             
 <div class="page-heading">
-    <h3>Tasks Page</h3>
+    <h3>Departments Page</h3>
 </div> 
 
 <div id="main w-full">
@@ -21,14 +21,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>TaskTable</h3>
-                <p class="text-subtitle text-muted">Handle employee tasks</p>
+                <h3>DepartmentTable</h3>
+                <p class="text-subtitle text-muted">Handle Departments</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="">Task</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="">Department</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Index</li>
                     </ol>
                 </nav>
@@ -39,56 +39,52 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Data Task
+                    Data Department
                 </h5>
             </div>
             <div class="card-body">
                 <div class="d-flex">
-                    <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3 ms-auto">New Task</a>
+                    <a href="{{ route('departments.create') }}" class="btn btn-primary mb-3 ms-auto">New Department</a>
                 </div>
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Assigned To</th>
+                            <th>Department name</th>
                             <th>Description</th>
-                            <th>Due Date</th>
+                            <th>Established Date</th>
                             <th>Status</th>
-                            <th>Actions</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tasks as $task )
+                        @foreach ($departments as $department )
                             <tr>
-                            <td class="w-1/2">{{ $task->title }}</td>
-                            <td>{{ $task->employee->fullname }}</td>
-                            <td>{{ $task->description }}</td>
-                            <td>{{ $task->due_date }}</td>
-                            <td>@if ($task->status == 'Pending')
-                                <span class="text-warning">{{ $task->status }}</span>
-                                @elseif ($task->status == 'done')
-                                <span class="text-success">{{ $task->status }}</span>
+                            <td >{{ $department->name }}</td>
+                            <td>{{ $department->description }}</td>
+                            <td>{{ $department->created_at->format('Y-m-d') }}</td>
+                            <td>@if ($department->status == 'Active')
+                                <span class="text-info">{{ $department->status }}</span>
                                 @else
-                                <span class="text-info">{{ $task->status }}</span>
+                                <span class="text-danger">{{ $department->status }}</span>
                             @endif</td>
                             <td class="d-flex gap-2">
                                 <a href="" class="btn btn-info btn-sm">View</a>
-                                @if ($task->status == 'Pending')
-                                    <form action="{{ route('tasks.taskStatus', $task->id) }}" method="post" >
+                                @if ($department->status == 'Active')
+                                    <form action="{{ route('departments.departmentStatus', $department->id) }}" method="post" >
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-success btn-sm">Mark as Done</button>
+                                        <button type="submit" class="btn btn-success btn-sm">Mark as Innactive</button>
                                     </form>
                                 @else
-                                    <form action="{{ route('tasks.taskStatus', $task->id) }}" method="post">
+                                    <form action="{{ route('departments.departmentStatus', $department->id) }}" method="post">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-warning btn-sm">Mark as Pending</button>
+                                        <button type="submit" class="btn btn-warning btn-sm">Mark as Active</button>
                                     </form>                                
                                 @endif
 
-                                <a href="{{ route('tasks.edit', $task->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                                <form action="{{ route('tasks.destroy', $task->id) }}" method="post">
+                                <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{{ route('departments.destroy', $department->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
